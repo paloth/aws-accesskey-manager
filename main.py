@@ -3,6 +3,7 @@ from pathlib import Path
 
 import click
 from src.cmd.generate import execute
+import sys
 
 AWS_PROFILE_FILE = f"{str(Path.home())}/.aws/credentials"
 
@@ -27,20 +28,14 @@ def generate(profile, user, token):
 
 
 @run.command(help="Create a configuration to manage your personnal access key")
-@click.option(
-    "-e", "--expire", help="Number of day before the access key must be change"
-)
-@click.option(
-    "-p", "--profile", help="The local aws profile saved for your configuration"
-)
-@click.option("-u", "--user", help="The AWS user to manage access key")
+# @click.option("-e", "--expire", help="Number of day before the access key must be change")
+# @click.option("-p", "--profile", help="The local aws profile saved for your configuration")
+# @click.option("-u", "--user", help="The AWS user to manage access key")
 def config():
-    pass
+    sys.exit("This feature will be implemented soon")
 
 
 @run.command(help="Rotate your personnal access key")
-@click.option(
-    "-e", "--expire", help="Number of day before the access key must be change"
-)
+# @click.option("-e", "--expire", help="Number of day before the access key must be change")
 def rotate():
-    pass
+    sys.exit("This feature will be implemented soon")
