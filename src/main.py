@@ -22,12 +22,15 @@ def generate(profile, user, token):
     execute(AWS_PROFILE_FILE, profile, user, token)
 
 
-@run.command(help="Check access key age")
-@click.option("--test", help="This is a test")
-def check(test):
+@run.command(help="Create a configuration to manage your personnal access key")
+@click.option("-e", "--expire", help="Number of day before the access key must be change")
+@click.option("-p", "--profile", help="The local aws profile saved for your configuration")
+@click.option("-u", "--user", help="The AWS user to manage access key")
+def config():
     pass
 
 
-@run.command(help="Perform access key rotation")
+@run.command(help="Rotate your personnal access key")
+@click.option("-e", "--expire", help="Number of day before the access key must be change")
 def rotate():
     pass
