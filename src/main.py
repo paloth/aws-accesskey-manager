@@ -8,23 +8,13 @@ AWS_PROFILE_FILE = f"{str(Path.home())}/.aws/credentials"
 
 
 @click.group()
-# @click.option("--debug", is_flag=True)
 def run():
     pass
-    # if debug:
-    #     os.environ["LOGS_LVL"] = "10"
-    # logger = logs.get_logger(__name__, os.getenv("LOGS_LVL", "20"))
-    # if os.environ.get("LOGS_LVL") is not None:
-    #     logger.warning("Be careful !! Logs have been set to DEBUG. Sensitive information may be displayed.")
 
 
-@run.command(help="Generate temporary token")
+@run.command(help="Generate a temporary token")
 @click.option(
-    "-p",
-    "--profile",
-    default=lambda: os.environ.get("AWS_PROFILE"),
-    required=True,
-    help="AWS profile to use",
+    "-p", "--profile", default=lambda: os.environ.get("AWS_PROFILE"), required=True, help="AWS profile to use",
 )
 @click.option("-u", "--user", required=True, help="AWS user name")
 @click.option("-t", "--token", required=True, help="MFA Token")

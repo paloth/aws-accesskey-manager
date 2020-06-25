@@ -10,15 +10,9 @@ def get(profile_path):
 def write(path, profile, config, credentials):
     if profile + "-tmp" not in config:
         config[f"{profile}-tmp"] = {}
-    config[f"{profile}-tmp"]["aws_access_key_id"] = credentials["Credentials"][
-        "AccessKeyId"
-    ]
-    config[f"{profile}-tmp"]["aws_secret_access_key"] = credentials["Credentials"][
-        "SecretAccessKey"
-    ]
-    config[f"{profile}-tmp"]["aws_session_token"] = credentials["Credentials"][
-        "SessionToken"
-    ]
+    config[f"{profile}-tmp"]["aws_access_key_id"] = credentials["Credentials"]["AccessKeyId"]
+    config[f"{profile}-tmp"]["aws_secret_access_key"] = credentials["Credentials"]["SecretAccessKey"]
+    config[f"{profile}-tmp"]["aws_session_token"] = credentials["Credentials"]["SessionToken"]
     config[f"{profile}-tmp"]["aws_default_region"] = "eu-west-1"
     with open(path, "w") as configfile:
         config.write(configfile)
