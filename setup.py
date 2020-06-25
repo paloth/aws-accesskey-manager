@@ -7,6 +7,6 @@ setup(
     install_requires=["Click", "boto3", "botocore"],
     entry_points="""
     [console_scripts]
-    akm=src.main:run
+    akm=main:run
     """,
 )
