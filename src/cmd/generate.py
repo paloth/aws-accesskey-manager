@@ -9,7 +9,7 @@ def execute(profile_path, profile, user_name, user_token):
 
     if not profile_config.has_section(profile):
         sys.exit(
-            "The profile provided does not exists in your credential file\nPlease select a valid profile"
+            f"The profile {profile} does not exists in your credential file\nPlease select a valid profile"
         )
 
     while not token.validity(user_token):
