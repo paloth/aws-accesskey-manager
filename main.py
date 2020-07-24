@@ -17,7 +17,8 @@ def run():
 @click.option(
     "-p",
     "--profile",
-    default=lambda: os.environ.get("AWS_PROFILE", "default"),
+    default=os.environ.get("AWS_PROFILE", "default"),
+    show_default=True,
     required=True,
     help="AWS profile to use",
 )
