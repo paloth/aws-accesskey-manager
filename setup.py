@@ -11,17 +11,17 @@ setup(
     description="Manage your personnal access key on AWS",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=find_packages(),
+    packages=find_packages(exclude=["test*"]),
     install_requires=["Click", "boto3", "botocore"],
     license="MIT License",
     entry_points="""
     [console_scripts]
-    akm2=src.main:run
+    akm=src.main:run
     """,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )
