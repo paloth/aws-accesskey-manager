@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 import click
-from src.cmd.generate import execute
+from .cmd.mfa import execute
 import sys
 
 AWS_PROFILE_FILE = f"{str(Path.home())}/.aws/credentials"
@@ -13,7 +13,7 @@ def run():
     pass
 
 
-@run.command(help="Generate a temporary token")
+@run.command(help="Generate a temporary token with mfa")
 @click.option(
     "-p",
     "--profile",
@@ -24,7 +24,7 @@ def run():
 )
 @click.option("-u", "--user", required=True, help="AWS user name")
 @click.option("-t", "--token", required=True, help="MFA Token")
-def generate(profile, user, token):
+def mfa(profile, user, token):
     execute(AWS_PROFILE_FILE, profile, user, token)
 
 
