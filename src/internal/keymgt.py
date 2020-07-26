@@ -16,12 +16,12 @@ def convert_to_date(date_to_convert):
         raise error
 
 
-def is_access_key_expired(date):
+def is_access_key_expired(date, days):
     """
     Check if the delta between the current date and the data date is greater than 90 days
     datetime.datetime(2020, 3, 20, 22, 6, 14, tzinfo=tzutc())}]
     """
-    if (datetime.now().replace(tzinfo=tzutc(), microsecond=0) - date.replace(microsecond=0)) >= timedelta(days=90):
+    if (datetime.now().replace(tzinfo=tzutc(), microsecond=0) - date.replace(microsecond=0)) >= timedelta(days=days):
         return True
     else:
         return False
