@@ -54,4 +54,4 @@ def config():
     "-y", "--yes", default=False, show_default=True, help="Validate action without prompt",
 )
 def rotate(deactivate, expire, profile, user, yes):
-    cmdRotate.execute(deactivate, expire, profile, user, yes)
+    cmdRotate.execute(AWS_PROFILE_FILE, deactivate, expire, profile, user, yes)
