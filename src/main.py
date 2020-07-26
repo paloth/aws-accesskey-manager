@@ -7,6 +7,7 @@ import click
 from .cmd import cmdRotate, cmdMfa
 import sys
 
+
 AWS_PROFILE_FILE = f"{str(Path.home())}/.aws/credentials"
 
 
@@ -39,9 +40,12 @@ def config():
 
 
 @run.command(help="Rotate your personnal access key")
-@click.option("-e", "--expire", help="Number of day before the access key must be change")
+@click.option("-e", "--expire", default=90, help="Number of day before the access key must be change")
 @click.option(
-    "-p", "--profile", default=os.environ.get("AWS_PROFILE", "default"), show_default=True, help="AWS profile to use",
+    "-p", "--profile", default=os.environ.get("AWS_PROFILE", "d2si"), show_default=True, help="AWS profile to use",
+)
+@click.option(
+    "-u", "--user", required=True, show_default=True, help="AWS user name to use",
 )
 @click.option(
     "-d", "--deactivate", default=False, show_default=True, help="Deactivate the old Access Key instead of delete it",
@@ -49,5 +53,5 @@ def config():
 @click.option(
     "-y", "--yes", default=False, show_default=True, help="Validate action without prompt",
 )
-def rotate(expire, profile, deactivate, yes):
-    cmdRotate.execute(expire, profile, deactivate, yes)
+def rotate(deactivate, expire, profile, user, yes):
+    cmdRotate.execute(deactivate, expire, profile, user, yes)
