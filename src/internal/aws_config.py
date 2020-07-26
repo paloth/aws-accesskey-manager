@@ -24,3 +24,7 @@ def update_profile(path, profile, config, key):
     config[profile]["aws_default_region"] = "eu-west-1"
     with open(path, "w") as configfile:
         config.write(configfile)
+
+
+def get_profile_ak_id(profile, config):
+    return config[profile]["aws_access_key_id"]
