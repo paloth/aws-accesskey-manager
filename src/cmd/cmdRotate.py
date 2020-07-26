@@ -1,7 +1,18 @@
 import boto3
 import sys
 
-from ..internal import aws_config
+from ..internal import aws_config, keymgt
+
+
+def check_access_key_exist(profile_ak, user_ak):
+    flag = False
+    while flag is False:
+        for ak in user_ak["AccessKeyMetadata"]:
+            if ak["AccessKeyId"] == profile_ak:
+                flag = True
+                return ak
+        if flag is False:
+            sys.exit("Your profile access key does not match with an user access key")
 
 
 def execute(profile_path, deactivate, expire, profile, user_name, yes):
@@ -16,15 +27,13 @@ def execute(profile_path, deactivate, expire, profile, user_name, yes):
         sys.exit(f"The profile {profile} does not have access key id configured")
 
     access_key_id = aws_config.get_profile_ak_id(profile, profile_config)
-    # TODO Get AccessKey information
+
     session = boto3.session.Session(profile_name=profile)
     iam = session.client("iam")
 
     access_keys = iam.list_access_keys(UserName=user_name)
-    # TODO Check user AK ID with profile AK ID
 
-    for ak in access_keys["AccessKeyMetadata"]:
-        if ak["AccessKeyId"] == access_key_id:
-            pass
-        else:
-            sys.exit("Your profile access key id doesn't match with the user access key id")
+    access_key = check_access_key_exist(access_key_id, access_keys)
+
+    if keymgt.is_access_key_expired(access_key["CreateDate"], expire) is True:
+        pass
