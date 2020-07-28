@@ -44,7 +44,7 @@ def execute(profile_path, deactivate, expire, profile, user_name, yes):
 
         else:
             print("Your access key is not expired ...")
-            answer = input("Do you want to change it anyway ? (Only yes is good answer))")
+            answer = input("Do you want to change it anyway ? (Only 'yes' is good answer)")
 
             if answer.lower == "yes":
                 change_key(profile_config, profile_path, iam, deactivate, profile, user_name)
