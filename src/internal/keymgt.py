@@ -41,13 +41,18 @@ def check_access_key_exist(profile_ak, user_ak):
             sys.exit("Your profile access key does not match with an user access key")
 
 
-# def renew(config, iam, deactivate, profile, user_name):
-#     new_key = iam.create_access_key(UserName=user_name)
-#     current_ak = aws_config.get_profile_ak_id(profile, config)
-#     if deactivate:
-#         iam.update_access_key(
-#             UserName=user_name, AccessKeyId=key["AccessKeyId"], Status="Inactive",
-#         )
+def renew(config, iam, deactivate, profile, user_name):
+    new_ak = iam.create_access_key(UserName=user_name)
+
+    current_ak = aws_config.get_profile_ak_id(profile, config)
+    if deactivate:
+        iam.update_access_key(
+            UserName=user_name, AccessKeyId=current_ak["AccessKeyId"], Status="Inactive",
+        )
+    else:
+        iam.delete_access_key(UserName=user_name, AccessKeyId=current_ak["AccessKeyId"])
+
+    return new_ak
 
 
 def check(config, user_name, profile, path):

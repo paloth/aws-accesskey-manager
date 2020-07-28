@@ -26,4 +26,12 @@ def execute(profile_path, deactivate, expire, profile, user_name, yes):
 
     if keymgt.is_access_key_expired(access_key["CreateDate"], expire) is True:
         print("Your access key is expired ...")
-        keymgt.renew(profile_config, iam, deactivate, profile, user_name)
+        key = keymgt.renew(profile_config, iam, deactivate, profile, user_name)
+        aws_config(profile_path, profile, profile_config, key)
+    else:
+        if yes:
+            key = keymgt.renew(profile_config, iam, deactivate, profile, user_name)
+            aws_config(profile_path, profile, profile_config, key)
+        else:
+            print("Your access key is not expired ...")
+            print("Do you want to change it anyway ?")
