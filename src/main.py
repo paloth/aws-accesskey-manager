@@ -48,10 +48,15 @@ def config():
     "-u", "--user", required=True, show_default=True, help="AWS user name to use",
 )
 @click.option(
-    "-d", "--deactivate", default=False, show_default=True, help="Deactivate the old Access Key instead of delete it",
+    "-d",
+    "--deactivate",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Deactivate the old Access Key instead of delete it",
 )
 @click.option(
-    "-y", "--yes", default=False, show_default=True, help="Validate action without prompt",
+    "-y", "--yes", is_flag=True, default=False, show_default=True, help="Validate action without prompt",
 )
 def rotate(deactivate, expire, profile, user, yes):
     cmdRotate.execute(AWS_PROFILE_FILE, deactivate, expire, profile, user, yes)
