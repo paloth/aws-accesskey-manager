@@ -4,6 +4,12 @@ import sys
 from ..internal import aws_config, keymgt
 
 
+def change_key(profile_config, profile_path, iam, deactivate, profile, user_name):
+    key = keymgt.renew(profile_config, iam, deactivate, profile, user_name)
+    aws_config.update_profile(profile_path, profile, profile_config, key)
+    print("Your access key has been renewed")
+
+
 def execute(profile_path, deactivate, expire, profile, user_name, yes):
     print(f"Access Key rotation for profile {profile} ...")
 
@@ -26,14 +32,14 @@ def execute(profile_path, deactivate, expire, profile, user_name, yes):
 
     if keymgt.is_access_key_expired(access_key["CreateDate"], expire) is True:
         print("Your access key is expired ...")
-        key = keymgt.renew(profile_config, iam, deactivate, profile, user_name)
-        aws_config.update_profile(profile_path, profile, profile_config, key)
-        print("Your access key has been renewed")
+        change_key(profile_config, profile_path, iam, deactivate, profile, user_name)
     else:
         if yes:
-            key = keymgt.renew(profile_config, iam, deactivate, profile, user_name)
-            aws_config.update_profile(profile_path, profile, profile_config, key)
-            print("Your access key has been renewed")
+            change_key(profile_config, profile_path, iam, deactivate, profile, user_name)
         else:
             print("Your access key is not expired ...")
-            print("Do you want to change it anyway ?")
+            answer = input("Do you want to change it anyway ? (Only yes is good answer))")
+            if answer.lower == "yes":
+                change_key(profile_config, profile_path, iam, deactivate, profile, user_name)
+            else:
+                sys.exit("The key has not been renewed")
