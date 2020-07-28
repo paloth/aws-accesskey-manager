@@ -16,7 +16,7 @@ setup(
     license="MIT License",
     entry_points="""
     [console_scripts]
-    akm=src.main:run
+    akm2=src.main:run
     """,
     classifiers=[
         "Programming Language :: Python :: 3",

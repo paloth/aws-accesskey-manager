@@ -4,17 +4,6 @@ import sys
 from ..internal import aws_config, keymgt
 
 
-def check_access_key_exist(profile_ak, user_ak):
-    flag = False
-    while flag is False:
-        for ak in user_ak["AccessKeyMetadata"]:
-            if ak["AccessKeyId"] == profile_ak:
-                flag = True
-                return ak
-        if flag is False:
-            sys.exit("Your profile access key does not match with an user access key")
-
-
 def execute(profile_path, deactivate, expire, profile, user_name, yes):
     print(f"Access Key rotation for profile {profile} ...")
 
@@ -33,7 +22,8 @@ def execute(profile_path, deactivate, expire, profile, user_name, yes):
 
     access_keys = iam.list_access_keys(UserName=user_name)
 
-    access_key = check_access_key_exist(access_key_id, access_keys)
+    access_key = keymgt.check_access_key_exist(access_key_id, access_keys)
 
     if keymgt.is_access_key_expired(access_key["CreateDate"], expire) is True:
-        pass
+        print("Your access key is expired ...")
+        keymgt.renew(profile_config, iam, deactivate, profile, user_name)

@@ -4,6 +4,7 @@ import boto3
 from botocore.exceptions import ClientError
 from dateutil.tz import tzutc
 from . import aws_config
+import sys
 
 """Access Key management"""
 
@@ -25,6 +26,28 @@ def is_access_key_expired(date, days):
         return True
     else:
         return False
+
+
+def check_access_key_exist(profile_ak, user_ak):
+    flag = False
+    while flag is False:
+
+        for ak in user_ak["AccessKeyMetadata"]:
+            if ak["AccessKeyId"] == profile_ak:
+                flag = True
+                return ak
+
+        if flag is False:
+            sys.exit("Your profile access key does not match with an user access key")
+
+
+# def renew(config, iam, deactivate, profile, user_name):
+#     new_key = iam.create_access_key(UserName=user_name)
+#     current_ak = aws_config.get_profile_ak_id(profile, config)
+#     if deactivate:
+#         iam.update_access_key(
+#             UserName=user_name, AccessKeyId=key["AccessKeyId"], Status="Inactive",
+#         )
 
 
 def check(config, user_name, profile, path):
