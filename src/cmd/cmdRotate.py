@@ -1,7 +1,11 @@
 import boto3
+
+# from botocore.exceptions import ClientError
 import sys
 
 from ..internal import aws_config, keymgt
+from datetime import datetime, timedelta
+from dateutil.tz import tzutc
 
 
 def change_key(profile_config, profile_path, iam, deactivate, profile, user_name):
@@ -33,13 +37,19 @@ def execute(profile_path, deactivate, expire, profile, user_name, yes):
     if keymgt.is_access_key_expired(access_key["CreateDate"], expire) is True:
         print("Your access key is expired ...")
         change_key(profile_config, profile_path, iam, deactivate, profile, user_name)
+
     else:
         if yes:
             change_key(profile_config, profile_path, iam, deactivate, profile, user_name)
+
         else:
             print("Your access key is not expired ...")
             answer = input("Do you want to change it anyway ? (Only yes is good answer))")
+
             if answer.lower == "yes":
                 change_key(profile_config, profile_path, iam, deactivate, profile, user_name)
+
             else:
+                remaining_days = (access_key["CreateDate"] + timedelta(days=expire)) - datetime.now().replace(tzinfo=tzutc())
+                print(f"Your access key will expire in {remaining_days.days} days ")
                 sys.exit("The key has not been renewed")
