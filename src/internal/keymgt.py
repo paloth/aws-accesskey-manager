@@ -45,12 +45,13 @@ def renew(config, iam, deactivate, profile, user_name):
     new_ak = iam.create_access_key(UserName=user_name)
 
     current_ak = aws_config.get_profile_ak_id(profile, config)
+
     if deactivate:
         iam.update_access_key(
-            UserName=user_name, AccessKeyId=current_ak["AccessKeyId"], Status="Inactive",
+            UserName=user_name, AccessKeyId=current_ak, Status="Inactive",
         )
     else:
-        iam.delete_access_key(UserName=user_name, AccessKeyId=current_ak["AccessKeyId"])
+        iam.delete_access_key(UserName=user_name, AccessKeyId=current_ak)
 
     return new_ak
 
