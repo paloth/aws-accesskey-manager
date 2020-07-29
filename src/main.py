@@ -1,12 +1,10 @@
 import os
+import sys
 from pathlib import Path
 
 import click
 
-
-from .cmd import cmdRotate, cmdMfa
-import sys
-
+from .cmd import cmdMfa, cmdRotate
 
 AWS_PROFILE_FILE = f"{str(Path.home())}/.aws/credentials"
 

@@ -1,7 +1,8 @@
-import boto3
 import sys
-from ..internal import aws_config
-from ..internal import token
+
+import boto3
+
+from ..internal import aws_config, token
 
 
 def execute(profile_path, profile, user_name, user_token):

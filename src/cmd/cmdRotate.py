@@ -1,11 +1,11 @@
-import boto3
-
-# from botocore.exceptions import ClientError
 import sys
+from datetime import datetime, timedelta
+
+import boto3
+from botocore.exceptions import ClientError
+from dateutil.tz import tzutc
 
 from ..internal import aws_config, keymgt
-from datetime import datetime, timedelta
-from dateutil.tz import tzutc
 
 
 def change_key(profile_config, profile_path, iam, deactivate, profile, user_name):
@@ -30,7 +30,10 @@ def execute(profile_path, deactivate, expire, profile, user_name, yes):
     session = boto3.session.Session(profile_name=profile)
     iam = session.client("iam")
 
-    access_keys = iam.list_access_keys(UserName=user_name)
+    try:
+        access_keys = iam.list_access_keys(UserName=user_name)
+    except ClientError as error:
+        raise error
 
     access_key = keymgt.check_access_key_exist(access_key_id, access_keys)
 
