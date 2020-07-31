@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from .cmd import cmdMfa, cmdRotate
+from src.cmd import cmdMfa, cmdRotate
 
 AWS_PROFILE_FILE = f"{str(Path.home())}/.aws/credentials"
 
@@ -61,3 +61,7 @@ def config():
 @click.option("-y", "--yes", is_flag=True, default=False, show_default=True, help="Validate action without prompt", type=bool)
 def rotate(deactivate, expire, profile, user, yes):
     cmdRotate.execute(AWS_PROFILE_FILE, deactivate, expire, profile, user, yes)
+
+
+if __name__ == "__main__":
+    run()
