@@ -5,7 +5,7 @@ import boto3
 from botocore.exceptions import ClientError
 from dateutil.tz import tzutc
 
-from ..internal import aws_config, keymgt
+from akm.internal import aws_config, keymgt
 
 
 def change_key(profile_config, profile_path, iam, deactivate, profile, user_name):

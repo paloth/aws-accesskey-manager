@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from src.cmd import cmdMfa, cmdRotate
+from akm.cmd import cmdMfa, cmdRotate
 
 AWS_PROFILE_FILE = f"{str(Path.home())}/.aws/credentials"
 

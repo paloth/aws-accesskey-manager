@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from botocore.exceptions import ClientError
 from dateutil.tz import tzutc
 
-from . import aws_config
+from akm.internal import aws_config
 
 """Access Key management"""
 
@@ -38,9 +38,10 @@ def renew(config, iam, deactivate, profile, user_name):
         new_ak = iam.create_access_key(UserName=user_name)
     except ClientError as error:
         if error.response["Error"]["Code"] == "LimitExceededException":
-            print(
-                "Too much access key existing for your user.\nYou cannot have more than 2 Access Key at the same time.\nPlease delete at least one access key"
-            )
+            print("Too much access key existing for your user.")
+            print("You cannot have more than 2 Access Key at the same time.")
+            print("Please delete at least one access key")
+
             raise error
 
     current_ak = aws_config.get_profile_ak_id(profile, config)

@@ -2,7 +2,7 @@ import sys
 
 import boto3
 
-from ..internal import aws_config, token
+from akm.internal import aws_config, token
 
 
 def execute(profile_path, profile, user_name, user_token):

@@ -1,9 +1,6 @@
 [run]
 omit =
     */__init__.py
-    */conftest.py
-    */other/*
-    */test/*
 
 [report]
 precision = 2
