@@ -1,37 +1,56 @@
-## Welcome to GitHub Pages
+# AKM (AWS Key Manager)
 
-You can use the [editor on GitHub](https://github.com/paloth/aws-accesskey-manager/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+## Installation
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+To install the package, download the latest release and execute the following commands:
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```shell
+pip install aws-key-manager-*.tar.gz
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## How to use
 
-### Jekyll Themes
+### Commands
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/paloth/aws-accesskey-manager/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+This is the list of the differents commands available:
 
-### Support or Contact
+- **mfa**
+  - Generate a temporary token with mfa
+- **rotate**
+  - Rotate your personnal access key
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+#### MFA
+
+The **mfa** command will request to aws a set of temporary credentials with mfa.
+
+You can use differents arguments:
+
+| argument  | shortcut | description                                      |
+| --------- | -------- | ------------------------------------------------ |
+| --help    | -h       | Show this help message and exit                  |
+| --user    | -u       | A valid user name on aws                         |
+| --token   | -t       | A valid token (Must be 6 digits)                 |
+| --profile | -p       | A valid profile present in your .aws/credentials |
+
+Example: `akm mfa -p MyProfile -u UserName -t 000000`
+
+It will return the temporary credentials and will write it into the aws credentials configuration file as `profile-tmp`
+
+If your token does not match the regex, you will be prompted to enter a valid token.
+
+#### Rotate
+
+The **rotate** command check your current access key age, creates a new access key on AWS if the current expired and change it automatically on your local profile.
+
+You can use differents arguments:
+
+| argument     | shortcut | description                                                                          |
+| ------------ | -------- | ------------------------------------------------------------------------------------ |
+| --help       | -h       | Show this help message and exit                                                      |
+| --expire     | -e       | Number of day before the access key must be change. **90 days** by default           |
+| --user       | -u       | AWS user name to use                                                                 |
+| --profile    | -p       | AWS profile to use. Take your **current active profile** or '**default**' by default |
+| --deactivate | -d       | Deactivate the old Access Key instead of delete it. **False** by default             |
+| --yes        | -y       | Validate action without prompt. **False** by default                                 |
+
+Example: `akm rotate -p MyProfile -u UserName`
