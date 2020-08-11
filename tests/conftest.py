@@ -1,4 +1,6 @@
 from pytest import fixture
+from datetime import datetime
+from dateutil.tz import tzutc
 
 
 @fixture()
@@ -17,6 +19,11 @@ def sts_get_caller_id_response():
 
 
 @fixture()
+def iam_list_ak_response():
+    return {"AccessKeyMetadata": [{"AccessKeyId": "AKIA111111111EXAMPLE"}, {"AccessKeyId": "AKIA222222222EXAMPLE"}]}
+
+
+@fixture()
 def boto_standard_error():
     return {"Error": {"Code": "WhatEver", "Message": "Error"}}
 
@@ -24,3 +31,13 @@ def boto_standard_error():
 @fixture()
 def sts_get_session_error():
     return {"Error": {"Code": "WhatEver", "Message": "Error"}}
+
+
+@fixture()
+def current_mocked_date():
+    return datetime(2020, 7, 1, 10, 00, 00, tzinfo=tzutc())
+
+
+@fixture()
+def creation_mocked_date():
+    return datetime(2020, 5, 1, 10, 00, 00, tzinfo=tzutc())

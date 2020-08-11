@@ -7,7 +7,7 @@ def validity(token):
     return True if re.match(r"^\d{6}$", token) else False
 
 
-def get_sesion_token(sts, user_name, user_token):
+def get_session_token(sts, user_name, user_token):
     try:
         identity_response = sts.get_caller_identity()
     except ClientError as error:
