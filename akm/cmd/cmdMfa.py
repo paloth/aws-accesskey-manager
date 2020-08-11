@@ -19,7 +19,7 @@ def execute(profile_path, profile, user_name, user_token):
 
     sts = session.client("sts")
 
-    credentials = token.get_sesion_token(sts, user_name, user_token)
+    credentials = token.get_session_token(sts, user_name, user_token)
 
     aws_config.write(profile_path, profile, profile_config, credentials)
     print(f"Profile [{profile}-tmp] has been updated and will expire on {credentials['Credentials']['Expiration']}")

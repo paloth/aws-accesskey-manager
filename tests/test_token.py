@@ -17,7 +17,7 @@ def test_get_session_token(sts_get_session_response, sts_get_caller_id_response)
     sts.get_session_token.return_value = sts_get_session_response
     sts.get_caller_identity.return_value = sts_get_caller_id_response
 
-    assert token.get_sesion_token(sts, "user", "000000") == sts_get_session_response
+    assert token.get_session_token(sts, "user", "000000") == sts_get_session_response
 
 
 def test_get_caller_id_fails(sts_get_session_response, sts_get_caller_id_response, boto_standard_error):
@@ -25,7 +25,7 @@ def test_get_caller_id_fails(sts_get_session_response, sts_get_caller_id_respons
     sts.get_caller_identity = MagicMock(side_effect=ClientError(boto_standard_error, "Error"))
 
     with pytest.raises(ClientError) as error:
-        token.get_sesion_token(sts, "user", "000000")
+        token.get_session_token(sts, "user", "000000")
     assert "WhatEver" in str(error.value)
 
 
@@ -35,5 +35,5 @@ def test_get_session_token_fails(sts_get_session_response, sts_get_caller_id_res
     sts.get_caller_identity.return_value = sts_get_caller_id_response
 
     with pytest.raises(ClientError) as error:
-        token.get_sesion_token(sts, "user", "000000")
+        token.get_session_token(sts, "user", "000000")
     assert "WhatEver" in str(error.value)
