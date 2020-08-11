@@ -9,6 +9,11 @@ def fake_profile():
 
 
 @fixture()
+def fake_config():
+    return {"test": {"aws_access_key_id": "", "aws_secret_access_key": "", "aws_default_region": ""}}
+
+
+@fixture()
 def sts_get_session_response():
     return {"Credentials": {"AccessKeyId": "accesskey", "SecretAccessKey": "secretkey", "SessionToken": "sessiontoken"}}
 
@@ -25,7 +30,7 @@ def iam_list_ak_response():
 
 @fixture()
 def iam_create_access_key_return():
-    return {"AccessKey": {"AccessKeyId": "string"}}
+    return {"AccessKey": {"AccessKeyId": "accesskey", "SecretAccessKey": "secretkey"}}
 
 
 @fixture()
