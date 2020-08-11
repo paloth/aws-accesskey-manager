@@ -24,6 +24,11 @@ def iam_list_ak_response():
 
 
 @fixture()
+def iam_create_access_key_return():
+    return {"AccessKey": {"AccessKeyId": "string"}}
+
+
+@fixture()
 def boto_standard_error():
     return {"Error": {"Code": "WhatEver", "Message": "Error"}}
 
@@ -31,6 +36,11 @@ def boto_standard_error():
 @fixture()
 def sts_get_session_error():
     return {"Error": {"Code": "WhatEver", "Message": "Error"}}
+
+
+@fixture()
+def iam_limit_exceeded_exception():
+    return {"Error": {"Code": "LimitExceededException", "Message": "Error"}}
 
 
 @fixture()
