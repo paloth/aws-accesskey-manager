@@ -1,5 +1,4 @@
 import os
-import sys
 from pathlib import Path
 
 import click
@@ -28,14 +27,6 @@ def run():
 @click.option("-t", "--token", required=True, help="MFA Token", type=str)
 def mfa(profile, user, token):
     cmdMfa.execute(AWS_PROFILE_FILE, profile, user, token)
-
-
-@run.command(help="Create a configuration to manage your personnal access key")
-# @click.option("-e", "--expire", help="Number of day before the access key must be change")
-# @click.option("-p", "--profile", help="The local aws profile saved for your configuration")
-# @click.option("-u", "--user", help="The AWS user to manage access key")
-def config():
-    sys.exit("This feature will be implemented soon")
 
 
 @run.command(help="Rotate your personnal access key")
