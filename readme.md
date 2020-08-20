@@ -1,6 +1,4 @@
-# AWS Key Manager
-
-## Installation
+# Installation
 
 To install the package, download the latest release and execute the following commands:
 
@@ -17,4 +15,4 @@ This is the list of the differents commands available:
 - **MFA**
   - Generate a temporary token with mfa
 - **ROTATE**
-  - Rotate your personnal access key
+  - Rotate your personal access key
